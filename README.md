@@ -1,0 +1,3 @@
+# Wagmi & Playwright example
+
+TODO...
