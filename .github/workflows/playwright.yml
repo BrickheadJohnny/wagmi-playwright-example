@@ -25,7 +25,6 @@ jobs:
       env:
         VITE_TEST_ACCOUNT_ADDRESS: '0x246c702ac938badff4391d8c9a3500e2198d0561'
         VITE_TEST_ACCOUNT_MNEMONIC: ${{ secrets.TEST_ACCOUNT_MNEMONIC }}
-        VITE_ANVIL_FORK_URL: ${{ secrets.ANVIL_FORK_URL }}
       run: npm run build
     - name: Run Playwright tests
       env:
