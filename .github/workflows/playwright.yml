@@ -1,9 +1,11 @@
 name: Playwright Tests
+
 on:
   push:
-    branches: [ main, master ]
+    branches: [main]
   pull_request:
-    branches: [ main, master ]
+    branches: [main]
+
 jobs:
   test:
     timeout-minutes: 60
@@ -23,8 +25,8 @@ jobs:
       run: npm run build
     - name: Run Playwright tests
       env:
-        VITE_ANVIL_FORK_URL: ${{ secrets.VITE_ANVIL_FORK_URL }}
-        VITE_TEST_ACCOUNT_MNEMONIC: ${{ secrets.VITE_TEST_ACCOUNT_MNEMONIC }}
+        ANVIL_FORK_URL: ${{ secrets.ANVIL_FORK_URL }}
+        TEST_ACCOUNT_MNEMONIC: ${{ secrets.TEST_ACCOUNT_MNEMONIC }}
       run: npx playwright test
     - uses: actions/upload-artifact@v4
       if: always()
