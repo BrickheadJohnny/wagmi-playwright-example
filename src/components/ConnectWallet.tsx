@@ -9,8 +9,12 @@ export function ConnectWallet() {
 	if (isConnected)
 		return (
 			<div>
-				<span>{`Connected address: ${address}`}</span>
-				<button type="button" onClick={() => disconnect()}>
+				<span data-testid="address">{`Connected address: ${address?.toLowerCase()}`}</span>
+				<button
+					type="button"
+					onClick={() => disconnect()}
+					data-testid="disconnect-button"
+				>
 					Disconnect
 				</button>
 				<SignMessage />
@@ -23,7 +27,7 @@ export function ConnectWallet() {
 				<button
 					key={connector.id}
 					type="button"
-					data-testid={`${connector.id}-connector`}
+					data-testid={`${connector.id}-connect-button`}
 					onClick={() => connect({ connector })}
 				>
 					{connector.name}

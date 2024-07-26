@@ -16,10 +16,13 @@ export function SignMessage() {
 						message: "This message will be signed with the mock wallet.",
 					}).then(setSignedMessage)
 				}
+				data-testid="sign-message-button"
 			>
 				Sign message
 			</button>
-			{signedMessage && `Signature: ${signedMessage}`}
+			{signedMessage && (
+				<span data-testid="signature">{`Signature: ${signedMessage}`}</span>
+			)}
 		</div>
 	);
 }

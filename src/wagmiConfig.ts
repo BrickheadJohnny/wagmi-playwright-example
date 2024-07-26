@@ -1,29 +1,24 @@
 import { createTestClient, publicActions, walletActions } from "viem";
-import { privateKeyToAccount } from "viem/accounts";
+import { mnemonicToAccount } from "viem/accounts";
 import { http, createConfig } from "wagmi";
 import { foundry } from "wagmi/chains";
 import { mock } from "wagmi/connectors";
-
-const TEST_ACCOUNT = {
-	address: import.meta.env.VITE_TEST_ACCOUNT_ADDRESS,
-	key: import.meta.env.VITE_TEST_ACCOUNT_PRIVATE_KEY,
-} as const;
 
 export const wagmiConfig = createConfig({
 	chains: [foundry],
 	connectors: [
 		mock({
-			accounts: [TEST_ACCOUNT.address],
+			accounts: [import.meta.env.VITE_TEST_ACCOUNT_ADDRESS],
 		}),
 	],
-	client: () =>
+	client: ({ chain }) =>
 		createTestClient({
 			transport: http(),
-			chain: foundry,
+			chain,
 			mode: "anvil",
-			account: privateKeyToAccount(TEST_ACCOUNT.key),
+			account: mnemonicToAccount(import.meta.env.VITE_TEST_ACCOUNT_MNEMONIC),
 		})
-			// Extend the client with public and wallet actions, so it can also act as a Public Client and Wallet Client
 			.extend(publicActions)
 			.extend(walletActions),
+	multiInjectedProviderDiscovery: false,
 });
